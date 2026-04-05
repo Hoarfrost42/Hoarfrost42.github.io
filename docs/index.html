@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoarfrost42 Portfolio</title>
+    <style>
+      :root {
+        color: #1e2930;
+        background: #f8f1df;
+        font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.78), transparent 25%),
+          linear-gradient(180deg, #fbf4e7 0%, #f8f1df 100%);
+      }
+
+      .boot-shell {
+        display: grid;
+        min-height: 100dvh;
+        place-items: center;
+        padding: 24px;
+      }
+
+      .boot-note {
+        max-width: 760px;
+        border: 2px solid #435762;
+        border-radius: 32px;
+        background: rgba(255, 250, 240, 0.92);
+        box-shadow: 6px 7px 0 rgba(38, 54, 63, 0.16);
+        padding: 28px;
+      }
+
+      .boot-eyebrow {
+        margin: 0;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-size: 12px;
+        color: #64727c;
+      }
+
+      .boot-title {
+        margin: 14px 0 0;
+        font-size: clamp(32px, 6vw, 56px);
+        line-height: 1.02;
+      }
+
+      .boot-copy {
+        margin: 16px 0 0;
+        font-size: 16px;
+        line-height: 1.9;
+        color: #45525a;
+      }
+
+      .boot-tip {
+        display: inline-block;
+        margin-top: 18px;
+        border: 2px solid #435762;
+        border-radius: 999px;
+        background: #f6ec9a;
+        padding: 10px 14px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      code {
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.78);
+        padding: 2px 6px;
+        font-family: "Cascadia Mono", "Consolas", monospace;
+        font-size: 0.95em;
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/index-9APPQKJY.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-nLon2VLa.css">
+  </head>
+  <body>
+    <div id="root">
+      <main class="boot-shell">
+        <section class="boot-note" aria-live="polite">
+          <p class="boot-eyebrow">Hoarfrost42 / Portfolio Boot</p>
+          <h1 class="boot-title">作品集正在加载。</h1>
+          <p class="boot-copy">
+            如果你现在是直接双击打开本地导出的 <code>index.html</code>，浏览器可能不会执行 React
+            构建脚本，所以会看到白屏或只看到这一张提示卡。
+          </p>
+          <p class="boot-copy">
+            请改用 <code>npm run dev</code>、<code>npm run preview</code>，或者发布到 GitHub Pages 后访问。
+          </p>
+          <span class="boot-tip">HTTP 预览地址示例：<code>http://127.0.0.1:4173/</code></span>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

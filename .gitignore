@@ -1,0 +1,11 @@
+.claude/
+.codex-tasks/
+
+portfolio-app/node_modules/
+portfolio-app/*.log
+portfolio-app/*.err.log
+portfolio-app/*.tsbuildinfo
+
+portfolio-app/public/resume.pdf
+portfolio-app/public/portfolio-story-draft.json
+portfolio-app/public/resource/img/
