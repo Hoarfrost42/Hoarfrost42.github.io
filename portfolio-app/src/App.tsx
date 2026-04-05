@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
 import { DirectionSwitcher } from './components/DirectionSwitcher'
 import { ProjectNotebookSheet } from './components/ProjectNotebookSheet'
 import { SectionHeading } from './components/SectionHeading'
-import { StoryEditorPanel } from './components/StoryEditorPanel'
 import {
   type FocusTrackId,
   type PortfolioProject,
@@ -15,13 +14,22 @@ import {
   type StoryDraft,
 } from './content/storyData'
 
+const STORY_EDITOR_ENABLED = import.meta.env.DEV
+
+const StoryEditorPanelComponent = STORY_EDITOR_ENABLED
+  ? lazy(async () => {
+      const module = await import('./components/StoryEditorPanel')
+      return { default: module.StoryEditorPanel }
+    })
+  : undefined
+
 /**
- * 从浏览器缓存中恢复讲述稿草稿，便于静态站也能保留本地改文案的状态。
+ * 仅在本地开发时从浏览器缓存中恢复讲述稿草稿，避免公开站读取个人本地编辑状态。
  */
 function loadInitialStoryDraft(): StoryDraft {
   const defaultStoryDraft = createDefaultStoryDraft()
 
-  if (typeof window === 'undefined') {
+  if (!STORY_EDITOR_ENABLED || typeof window === 'undefined') {
     return defaultStoryDraft
   }
 
@@ -39,7 +47,7 @@ function loadInitialStoryDraft(): StoryDraft {
  * 判断当前浏览器是否已经保存过本地讲述稿。
  */
 function hasStoredStoryDraft(): boolean {
-  if (typeof window === 'undefined') {
+  if (!STORY_EDITOR_ENABLED || typeof window === 'undefined') {
     return false
   }
 
@@ -77,7 +85,7 @@ function App() {
   const [activeTrackId, setActiveTrackId] = useState<FocusTrackId>('ai')
   const [storyDraft, setStoryDraft] = useState<StoryDraft>(loadInitialStoryDraft)
   const [isStoryDraftReady, setIsStoryDraftReady] = useState<boolean>(
-    () => hasStoredStoryDraft(),
+    () => STORY_EDITOR_ENABLED && hasStoredStoryDraft(),
   )
 
   useEffect(() => {
@@ -105,7 +113,7 @@ function App() {
   }, [isStoryDraftReady])
 
   useEffect(() => {
-    if (!isStoryDraftReady) {
+    if (!STORY_EDITOR_ENABLED || !isStoryDraftReady) {
       return
     }
 
@@ -354,12 +362,16 @@ function App() {
         </section>
       </main>
 
-      <StoryEditorPanel
-        draft={storyDraft}
-        projects={portfolioProjects}
-        onChange={setStoryDraft}
-        onReset={() => setStoryDraft(createDefaultStoryDraft())}
-      />
+      {STORY_EDITOR_ENABLED && StoryEditorPanelComponent ? (
+        <Suspense fallback={null}>
+          <StoryEditorPanelComponent
+            draft={storyDraft}
+            projects={portfolioProjects}
+            onChange={setStoryDraft}
+            onReset={() => setStoryDraft(createDefaultStoryDraft())}
+          />
+        </Suspense>
+      ) : null}
     </div>
   )
 }
