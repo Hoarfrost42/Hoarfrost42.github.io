@@ -5,7 +5,7 @@
 ## 当前内容结构
 
 - 首页双入口：`AI 产品经理方向` / `游戏策划方向`
-- 已接入项目：`AI空间站`、`Contract Risk Agent`、`Vestige / 黑域边界`
+- 已接入项目：`AI空间站`、`合同风险监测系统`、`Vestige / 黑域边界`
 - 视觉风格：`Hand-Drawn Sketch` 手绘涂鸦笔记页
 
 ## 本地开发
@@ -39,6 +39,11 @@ http://127.0.0.1:4173/
 ```text
 ./resume.pdf
 ```
+
+仓库根目录下的 `resource/img` 与 `resource/text/系统整体架构图.md` 也会在 `dev/build` 前自动处理：
+
+- `resource/img` 会同步到站点公开图片目录
+- `resource/text/系统整体架构图.md` 会被提取为前端可渲染的 Mermaid JSON
 
 ## 关于“直接双击 index.html 白屏”
 

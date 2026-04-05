@@ -1,4 +1,5 @@
 import type { PortfolioProject } from '../content/portfolioData'
+import { MermaidDiagramCard } from './MermaidDiagramCard'
 
 interface ProjectNotebookSheetLabels {
   ownedWork: string
@@ -23,6 +24,7 @@ export function ProjectNotebookSheet({
 }: ProjectNotebookSheetProps) {
   const primaryGalleryItem = project.gallery?.[0]
   const secondaryGalleryItems = project.gallery?.slice(1) ?? []
+  const hasVisualShowcase = Boolean(primaryGalleryItem || project.diagram)
 
   return (
     <article className="sketch-frame overflow-hidden rounded-[2rem] bg-[rgba(255,255,255,0.8)] px-5 py-5 md:px-7 md:py-7">
@@ -56,21 +58,27 @@ export function ProjectNotebookSheet({
             </p>
           </header>
 
-          {primaryGalleryItem ? (
+          {hasVisualShowcase ? (
             <section className="space-y-4">
-              <figure className="overflow-hidden rounded-[1.8rem] border-2 border-[var(--line)] bg-[var(--paper)] shadow-[0_18px_30px_-22px_rgba(38,54,63,0.45)]">
-                <div className="bg-[rgba(214,238,245,0.42)] p-2 md:p-3">
-                  <img
-                    alt={primaryGalleryItem.alt}
-                    className="block h-auto w-full rounded-[1.1rem]"
-                    loading="lazy"
-                    src={primaryGalleryItem.src}
-                  />
-                </div>
-                <figcaption className="border-t-2 border-[var(--line)] bg-[rgba(255,255,255,0.82)] px-5 py-4 text-base leading-8 text-[var(--ink-muted)]">
-                  {primaryGalleryItem.caption}
-                </figcaption>
-              </figure>
+              {primaryGalleryItem ? (
+                <figure className="overflow-hidden rounded-[1.8rem] border-2 border-[var(--line)] bg-[var(--paper)] shadow-[0_18px_30px_-22px_rgba(38,54,63,0.45)]">
+                  <div className="bg-[rgba(214,238,245,0.42)] p-2 md:p-3">
+                    <img
+                      alt={primaryGalleryItem.alt}
+                      className="block h-auto w-full rounded-[1.1rem]"
+                      loading="lazy"
+                      src={primaryGalleryItem.src}
+                    />
+                  </div>
+                  <figcaption className="border-t-2 border-[var(--line)] bg-[rgba(255,255,255,0.82)] px-5 py-4 text-base leading-8 text-[var(--ink-muted)]">
+                    {primaryGalleryItem.caption}
+                  </figcaption>
+                </figure>
+              ) : null}
+
+              {project.diagram ? (
+                <MermaidDiagramCard src={project.diagram.src} />
+              ) : null}
 
               {secondaryGalleryItems.length > 0 ? (
                 <div className="space-y-4">

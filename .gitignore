@@ -9,3 +9,4 @@ portfolio-app/*.tsbuildinfo
 portfolio-app/public/resume.pdf
 portfolio-app/public/portfolio-story-draft.json
 portfolio-app/public/resource/img/
+portfolio-app/public/resource/diagrams/

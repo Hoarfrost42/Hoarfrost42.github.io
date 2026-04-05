@@ -97,7 +97,7 @@ export const defaultPageCopy: PageCopy = {
   heroTitleLead: '把复杂系统整理成',
   heroTitleTrail: '看得懂的产品。',
   heroIntro:
-    '这不是项目流水账，是一份我自己能拿来讲述的作品笔记。三个项目，分别回答我怎么定义问题、怎么搭结构、怎么把想法做成真正能跑的体验。',
+    '这不是项目流水账，是一份我自己能拿来讲述的作品笔记。四个项目，分别回答我怎么定义问题、怎么搭结构、怎么把想法做成真正能跑的体验。',
   viewCasesLabel: '看案例',
   resumeLabel: baseResumeAsset.label,
   resumeMeta: baseResumeAsset.meta,

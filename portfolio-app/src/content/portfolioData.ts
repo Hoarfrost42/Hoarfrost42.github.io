@@ -34,6 +34,9 @@ export interface PortfolioProject {
     alt: string
     caption: string
   }[]
+  diagram?: {
+    src: string
+  }
   metrics: string[]
   evidence: string[]
   stickyTone: string
@@ -69,9 +72,9 @@ export const focusTracks: Record<FocusTrackId, FocusTrack> = {
     eyebrow: 'Focus A',
     summary:
       '这条路径看的是问题怎么拆、架构怎么搭、效果怎么验。会调模型不稀奇，能把 AI 能力收成一个经得起检验的产品，这件事更值得聊。',
-    ordering: ['ai-navigation', 'contract-risk-agent', 'vestige'],
+    ordering: ['ai-navigation', 'agent-round', 'contract-risk-agent', 'vestige'],
     stackNote:
-      '按这个顺序看，先看产品判断和内容结构，再看 AI workflow 设计。',
+      '按这个顺序看，先看产品判断和内容结构，再看多模型协作机制，最后看 AI workflow 设计。',
   },
   game: {
     id: 'game',
@@ -80,9 +83,9 @@ export const focusTracks: Record<FocusTrackId, FocusTrack> = {
     eyebrow: 'Focus B',
     summary:
       '这条路径看的是体验怎么设计、规则怎么编排、节奏怎么控。做了个 demo 不算数，让游戏想法真正跑起来、玩得通，才是我想证明的。',
-    ordering: ['vestige', 'ai-navigation', 'contract-risk-agent'],
+    ordering: ['vestige', 'agent-round', 'ai-navigation', 'contract-risk-agent'],
     stackNote:
-      '按这个顺序看，先看玩法设计和叙事结构，再看系统落地能力。',
+      '按这个顺序看，先看玩法设计和叙事结构，再看系统编排能力，最后看产品落地和验证方式。',
   },
 }
 
@@ -152,6 +155,62 @@ export const portfolioProjects: PortfolioProject[] = [
     evidence: ['公开页面截图', '信息架构说明', '搜索与对比录屏', '脱敏内容关系图'],
     stickyTone: 'var(--sticky-blue)',
     tilt: 'rotate(1.6deg)',
+  },
+  {
+    id: 'agent-round',
+    title: 'AgentRound v2.0',
+    subtitle: '多模型协作圆桌讨论工具',
+    timeframe: '2026.03',
+    role: '产品定义 / 多模型交互设计 / 全栈原型实现',
+    heroLine: '多模型不是并排开几个聊天框，而是围绕同一个问题真正接上话。',
+    summary:
+      '这个项目最能体现我怎么把“多模型能力”从 Demo 变成产品机制：轮次、上下文、配置、导出，都得在同一套体验里闭环。',
+    detailHeadline:
+      '多模型协作这件事，关键不是模型数量，而是讨论机制能不能真的成立。',
+    coreQuestion:
+      '用户要的不是同时开很多聊天框，而是让多个模型围绕同一个问题真正接上话。难点不在于把模型排成列表，而在于轮次、上下文、用户决策点和配置入口，能不能在同一套产品里闭环。',
+    primaryValue: {
+      ai: '这个项目最能展示我怎么把“AI 能力”往产品机制里压，而不是停在 prompt 试玩层面。',
+      game:
+        '放到游戏策划路径里看，它更像一次系统设计练习：多角色发言顺序、信息流和决策节点，都需要被编排。',
+    },
+    highlights: [
+      '把“多模型并排问答”收口成了“围绕同一议题的圆桌讨论”，产品目标一下就清楚了。',
+      '轮次推进、继续讨论、认可共识、导出会话——整条闭环不是概念，而是完整地做出来了。',
+      '支持多 Provider、Prompt 模板、会话持久化和异常重试，不是一次性的演示页。',
+    ],
+    ownedWorkstreams: [
+      '产品定义：把“多模型并排问答”收口成“围绕同一议题的圆桌讨论”。',
+      '交互链路设计：建起从选择模型、发起问题、多轮继续、达成共识到导出会话的完整流程。',
+      '设置与模板能力：Provider、Model、Prompt、预设模板统一放进可操作的配置页。',
+      '后端能力搭建：SSE 流式返回、会话持久化、异常重试、API Key 加密存储。',
+    ],
+    deliveryChoices: [
+      '每一轮不是简单并发生成，而是给模型注入发言顺序，让后续发言者能回应前文。',
+      '流式和非流式 provider 共存时，用统一的 SSE 事件层去兼容，保证前端展示一致。',
+      '把 prompt 调试真正做成产品能力：模板、本地 YAML、设置页编辑、Markdown 导出都放进同一套链路。',
+      '单个模型出错也不直接打断整轮讨论，而是记录状态后继续往下走。',
+    ],
+    publicArtifacts: [
+      '主界面截图：看多模型回复如何按轮次连续展开。',
+      '设置页与模板系统：Provider、Prompt、模板配置都可操作。',
+      'README 功能说明：圆桌讨论、导出、决策卡片、长回复折叠等能力齐全。',
+      '测试目录：流式、Provider、Session、过滤器等关键模块都有对应测试。',
+    ],
+    showcaseBoundary:
+      '这里仅展示界面效果、公开实现结构和抽象能力说明。API Key、provider 细节配置、本地会话数据这些不会放出来。',
+    gallery: [
+      {
+        src: './resource/img/agent-round-chat.png',
+        alt: 'AgentRound 多模型圆桌讨论主界面截图',
+        caption:
+          '主界面：回复按轮次连续展开，用户不用来回切窗口，就能在一页里看完整个讨论过程。',
+      },
+    ],
+    metrics: ['4 类 Provider', 'SSE 实时流式', 'Markdown 导出', '8 组单测/集成测试'],
+    evidence: ['主界面截图', '设置页配置能力', 'README 功能说明', '测试目录结构'],
+    stickyTone: 'var(--sticky-yellow)',
+    tilt: 'rotate(-2.1deg)',
   },
   {
     id: 'contract-risk-agent',
@@ -276,6 +335,9 @@ export const portfolioProjects: PortfolioProject[] = [
         caption: '运行时界面：自然语言输入、检定结果、会话状态在一页内闭环——不是单纯的聊天壳。',
       },
     ],
+    diagram: {
+      src: './resource/diagrams/vestige-system-architecture.json',
+    },
     metrics: ['24 个场景', '29 条线索链', '11 个 NPC', '2-3 小时完整体验'],
     evidence: ['模组结构图', '场景与线索关系', '运行时架构设计', '试玩 Demo 与 UI 截图'],
     stickyTone: 'var(--sticky-pink)',
