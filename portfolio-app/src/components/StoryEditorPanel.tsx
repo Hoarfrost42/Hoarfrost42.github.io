@@ -201,7 +201,7 @@ export function StoryEditorPanel({
         <aside className="sketch-frame w-[min(470px,calc(100vw-1rem))] overflow-hidden rounded-[2rem] bg-[rgba(255,250,242,0.98)]">
           <div className="flex items-start justify-between gap-4 border-b-2 border-[var(--line)] px-5 py-4">
             <div className="space-y-2">
-              <p className="font-['Patrick_Hand'] text-[1.8rem] text-[var(--ink)]">
+              <p className="font-hand text-[1.8rem] text-[var(--ink)]">
                 讲述稿接口
               </p>
               <p className="max-w-[28ch] text-sm leading-6 text-[var(--ink-muted)]">
@@ -689,10 +689,10 @@ export function StoryEditorPanel({
         type="button"
         onClick={() => setIsOpen((currentState) => !currentState)}
       >
-        <span className="block font-['Patrick_Hand'] text-lg tracking-[0.12em]">
+        <span className="block font-hand text-lg tracking-[0.12em]">
           Story
         </span>
-        <span className="mt-1 block font-['Shantell_Sans'] text-xl font-semibold">
+        <span className="mt-1 block font-hand text-xl font-semibold">
           讲述稿面板
         </span>
       </button>

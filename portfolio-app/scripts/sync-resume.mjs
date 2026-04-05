@@ -20,6 +20,8 @@ const publicDirectory = resolve(projectDirectory, 'public')
 const targetResumePath = resolve(publicDirectory, 'resume.pdf')
 const sourceImageDirectory = resolve(projectDirectory, '..', 'resource', 'img')
 const targetImageDirectory = resolve(publicDirectory, 'resource', 'img')
+const sourceTextDirectory = resolve(projectDirectory, '..', 'resource', 'text')
+const targetTextDirectory = resolve(publicDirectory, 'resource', 'text')
 
 if (!existsSync(sourceResumePath)) {
   console.warn(
@@ -38,14 +40,8 @@ if (!existsSync(sourceImageDirectory)) {
   process.exit(0)
 }
 
+rmSync(targetImageDirectory, { force: true, recursive: true })
 mkdirSync(targetImageDirectory, { recursive: true })
-
-for (const targetFileName of readdirSync(targetImageDirectory)) {
-  rmSync(resolve(targetImageDirectory, targetFileName), {
-    force: true,
-    recursive: true,
-  })
-}
 
 const screenshotNameMap = new Map([
   ['首页.png', 'ai-home.png'],
@@ -66,3 +62,22 @@ for (const sourceFileName of readdirSync(sourceImageDirectory)) {
 }
 
 console.log(`[sync:resume] 已同步截图到 ${targetImageDirectory}`)
+
+if (!existsSync(sourceTextDirectory)) {
+  console.warn(
+    `[sync:resume] 未找到文本目录，跳过同步: ${sourceTextDirectory}`,
+  )
+  process.exit(0)
+}
+
+rmSync(targetTextDirectory, { force: true, recursive: true })
+mkdirSync(targetTextDirectory, { recursive: true })
+
+for (const sourceFileName of readdirSync(sourceTextDirectory)) {
+  copyFileSync(
+    resolve(sourceTextDirectory, sourceFileName),
+    resolve(targetTextDirectory, sourceFileName),
+  )
+}
+
+console.log(`[sync:resume] 已同步文本资源到 ${targetTextDirectory}`)

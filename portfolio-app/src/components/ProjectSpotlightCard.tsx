@@ -23,10 +23,10 @@ export function ProjectSpotlightCard({
         <div className="space-y-5">
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div className="space-y-2">
-              <p className="font-['Patrick_Hand'] text-lg text-[var(--ink-soft)]">
+              <p className="font-hand text-lg text-[var(--ink-soft)]">
                 Case 0{rank}
               </p>
-              <h3 className="font-['Shantell_Sans'] text-2xl font-semibold text-[var(--ink)] md:text-[2rem]">
+              <h3 className="font-hand text-2xl font-semibold text-[var(--ink)] md:text-[2rem]">
                 {project.title}
               </h3>
               <p className="max-w-[48ch] text-sm uppercase tracking-[0.18em] text-[var(--ink-soft)]">
@@ -39,13 +39,13 @@ export function ProjectSpotlightCard({
             </div>
           </div>
 
-          <p className="font-['Shantell_Sans'] text-lg font-semibold leading-8 text-[var(--ink)]">
+          <p className="font-hand text-lg font-semibold leading-8 text-[var(--ink)]">
             {project.heroLine}
           </p>
           <p className="leading-8 text-[var(--ink-muted)]">{project.summary}</p>
 
           <div className="space-y-3">
-            <p className="font-['Patrick_Hand'] text-2xl text-[var(--ink)]">
+            <p className="font-hand text-2xl text-[var(--ink)]">
               为什么适合当前路径
             </p>
             <p className="rounded-[1.4rem] border-2 border-dashed border-[var(--line)] bg-[rgba(255,255,255,0.72)] px-4 py-4 leading-8 text-[var(--ink-muted)]">
@@ -54,7 +54,7 @@ export function ProjectSpotlightCard({
           </div>
 
           <div className="space-y-3">
-            <p className="font-['Patrick_Hand'] text-2xl text-[var(--ink)]">
+            <p className="font-hand text-2xl text-[var(--ink)]">
               项目亮点
             </p>
             <ul className="space-y-3">
@@ -82,7 +82,7 @@ export function ProjectSpotlightCard({
               transform: project.tilt,
             }}
           >
-            <p className="font-['Patrick_Hand'] text-[1.65rem] text-[var(--ink)]">
+            <p className="font-hand text-[1.65rem] text-[var(--ink)]">
               Result Notes
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -95,7 +95,7 @@ export function ProjectSpotlightCard({
           </div>
 
           <div className="rounded-[1.7rem] border-2 border-[var(--line)] bg-[rgba(255,255,255,0.68)] px-5 py-5">
-            <p className="font-['Patrick_Hand'] text-[1.65rem] text-[var(--ink)]">
+            <p className="font-hand text-[1.65rem] text-[var(--ink)]">
               Evidence Shelf
             </p>
             <ul className="mt-4 space-y-3">

@@ -14,7 +14,7 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <header className="max-w-3xl space-y-3">
-      <p className="font-['Patrick_Hand'] text-lg uppercase tracking-[0.24em] text-[var(--ink-soft)]">
+      <p className="font-hand text-lg uppercase tracking-[0.24em] text-[var(--ink-soft)]">
         {eyebrow}
       </p>
       <div className="space-y-3">

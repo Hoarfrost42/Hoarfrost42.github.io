@@ -29,10 +29,10 @@ export function DirectionSwitcher({
             }`}
             onClick={() => onChange(track.id)}
           >
-            <span className="block font-['Patrick_Hand'] text-lg tracking-[0.12em]">
+            <span className="block font-hand text-lg tracking-[0.12em]">
               {track.eyebrow}
             </span>
-            <span className="mt-1 block font-['Shantell_Sans'] text-xl font-semibold">
+            <span className="mt-1 block font-hand text-xl font-semibold">
               {track.shortLabel}
             </span>
           </button>

@@ -2,10 +2,12 @@ import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
 import { DirectionSwitcher } from './components/DirectionSwitcher'
 import { ProjectNotebookSheet } from './components/ProjectNotebookSheet'
 import { SectionHeading } from './components/SectionHeading'
+import { SupplementalNoteSheet } from './components/SupplementalNoteSheet'
 import {
   type FocusTrackId,
   type PortfolioProject,
 } from './content/portfolioData'
+import { supplementalNotes } from './content/supplementalNotes'
 import {
   STORY_DRAFT_STORAGE_KEY,
   buildPortfolioStory,
@@ -144,222 +146,324 @@ function App() {
     },
     [activeTrack.ordering, portfolioProjects],
   )
+  const activeSupplementalNotes = useMemo(
+    () =>
+      supplementalNotes.filter((note) => note.trackIds.includes(activeTrackId)),
+    [activeTrackId],
+  )
+  const sectionJumpNotes = useMemo(
+    () => {
+      const jumpNotes = [
+        {
+          id: 'intro',
+          label: '首页速览',
+          hint: '先看定位',
+          tone: 'var(--sticky-yellow)',
+        },
+        {
+          id: 'cases',
+          label: '项目案例',
+          hint: '核心作品',
+          tone: 'var(--sticky-blue)',
+        },
+      ]
+
+      if (activeSupplementalNotes.length > 0) {
+        jumpNotes.push({
+          id: 'design-notes',
+          label: '策划拆解',
+          hint: '文字型证据',
+          tone: 'var(--sticky-pink)',
+        })
+      }
+
+      jumpNotes.push(
+        {
+          id: 'work-style',
+          label: '工作方式',
+          hint: '怎么推进事',
+          tone: 'var(--sticky-green)',
+        },
+        {
+          id: 'contact',
+          label: '联系',
+          hint: '继续往下聊',
+          tone: 'var(--sticky-yellow)',
+        },
+      )
+
+      return jumpNotes
+    },
+    [activeSupplementalNotes.length],
+  )
 
   return (
     <div className="paper-grid min-h-[100dvh] overflow-x-clip bg-[var(--paper)] text-[var(--ink)]">
-      <main className="relative mx-auto flex w-full max-w-[1400px] flex-col gap-8 px-4 py-4 md:px-8 md:py-8">
-        <section className="sketch-frame relative overflow-hidden rounded-[2.2rem] px-6 py-7 md:px-10 md:py-10">
-          <div className="grid gap-10 lg:grid-cols-[1.16fr_0.84fr] lg:items-center">
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <p className="font-['Patrick_Hand'] text-2xl tracking-[0.16em] text-[var(--ink-soft)]">
-                  {pageCopy.nameLabel}
-                </p>
-                <h1 className="ink-title max-w-[11ch] text-5xl md:text-7xl">
-                  {pageCopy.heroTitleLead}
-                  <span className="block">{pageCopy.heroTitleTrail}</span>
-                </h1>
-                <p className="max-w-[60ch] text-base leading-8 text-[var(--ink-muted)] md:text-lg">
-                  {pageCopy.heroIntro}
-                </p>
-              </div>
+      <aside aria-label="板块跳转" className="page-jump-board hidden lg:block">
+        <p className="page-jump-board__title">快速跳转</p>
+        <div className="page-jump-board__list">
+          {sectionJumpNotes.map((item, index) => (
+            <a
+              key={item.id}
+              className="page-jump-note"
+              href={`#${item.id}`}
+              style={{
+                backgroundColor: item.tone,
+                transform: index % 2 === 0 ? 'rotate(-1.6deg)' : 'rotate(1.2deg)',
+              }}
+            >
+              <span className="page-jump-note__index">0{index + 1}</span>
+              <strong className="page-jump-note__label">{item.label}</strong>
+              <span className="page-jump-note__hint">{item.hint}</span>
+            </a>
+          ))}
+        </div>
+      </aside>
 
-              <DirectionSwitcher
-                activeTrackId={activeTrackId}
-                tracks={Object.values(focusTracks)}
-                onChange={setActiveTrackId}
-              />
+      <main className="relative mx-auto w-full max-w-[1400px] px-4 py-4 md:px-8 md:py-8">
+        <div className="flex min-w-0 flex-col gap-8">
+            <section
+              id="intro"
+              className="sketch-frame relative overflow-hidden rounded-[2.2rem] px-6 py-7 md:px-10 md:py-10"
+            >
+              <div className="grid gap-10 lg:grid-cols-[1.16fr_0.84fr] lg:items-center">
+                <div className="space-y-8">
+                  <div className="space-y-4">
+                    <p className="font-hand text-2xl tracking-[0.16em] text-[var(--ink-soft)]">
+                      {pageCopy.nameLabel}
+                    </p>
+                    <h1 className="ink-title max-w-[11ch] text-5xl md:text-7xl">
+                      {pageCopy.heroTitleLead}
+                      <span className="block">{pageCopy.heroTitleTrail}</span>
+                    </h1>
+                    <p className="max-w-[60ch] text-base leading-8 text-[var(--ink-muted)] md:text-lg">
+                      {pageCopy.heroIntro}
+                    </p>
+                  </div>
 
-              <div className="grid gap-4 md:grid-cols-[1fr_auto]">
-                <div className="sticky-note rounded-[1.9rem] px-5 py-5">
-                  <p className="font-['Patrick_Hand'] text-[1.8rem] text-[var(--ink)]">
-                    {pageCopy.currentTrackTitle}
-                  </p>
-                  <p className="mt-3 text-sm uppercase tracking-[0.18em] text-[var(--ink-soft)]">
-                    {activeTrack.label}
-                  </p>
-                  <p className="mt-3 max-w-[48ch] leading-8 text-[var(--ink-muted)]">
-                    {activeTrack.summary}
-                  </p>
+                  <DirectionSwitcher
+                    activeTrackId={activeTrackId}
+                    tracks={Object.values(focusTracks)}
+                    onChange={setActiveTrackId}
+                  />
+
+                  <div className="grid gap-4 md:grid-cols-[1fr_auto]">
+                    <div className="sticky-note rounded-[1.9rem] px-5 py-5">
+                      <p className="font-hand text-[1.8rem] text-[var(--ink)]">
+                        {pageCopy.currentTrackTitle}
+                      </p>
+                      <p className="mt-3 text-sm uppercase tracking-[0.18em] text-[var(--ink-soft)]">
+                        {activeTrack.label}
+                      </p>
+                      <p className="mt-3 max-w-[48ch] leading-8 text-[var(--ink-muted)]">
+                        {activeTrack.summary}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-3 md:flex-col">
+                      <a className="sketch-button" href="#cases">
+                        {pageCopy.viewCasesLabel}
+                      </a>
+                      <a
+                        className="sketch-button"
+                        href={resumeAsset.href}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        <span>{resumeAsset.label}</span>
+                        <span className="text-xs uppercase tracking-[0.16em] text-[var(--ink-soft)]">
+                          {resumeAsset.meta}
+                        </span>
+                      </a>
+                      <a
+                        className="sketch-button"
+                        href={contactLinks[0]?.href ?? 'mailto:fhoar53@gmail.com'}
+                      >
+                        {pageCopy.contactLabel}
+                      </a>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex flex-wrap gap-3 md:flex-col">
-                  <a className="sketch-button" href="#cases">
-                    {pageCopy.viewCasesLabel}
-                  </a>
-                  <a
-                    className="sketch-button"
-                    href={resumeAsset.href}
-                    rel="noreferrer"
-                    target="_blank"
+                <aside className="relative grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                  <div
+                    className="sticky-note notebook-shadow rounded-[1.7rem] px-5 py-5"
+                    style={{ transform: 'rotate(-2.2deg)' }}
                   >
-                    <span>{resumeAsset.label}</span>
-                    <span className="text-xs uppercase tracking-[0.16em] text-[var(--ink-soft)]">
-                      {resumeAsset.meta}
-                    </span>
-                  </a>
-                  <a
-                    className="sketch-button"
-                    href={contactLinks[0]?.href ?? 'mailto:fhoar53@gmail.com'}
+                    <p className="font-hand text-[1.65rem] text-[var(--ink)]">
+                      {pageCopy.projectStackTitle}
+                    </p>
+                    <ol className="mt-4 space-y-3">
+                      {orderedProjects.map((project, index) => (
+                        <li
+                          key={project.id}
+                          className="flex items-start gap-3 text-sm leading-7 text-[var(--ink-muted)]"
+                        >
+                          <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-[var(--ink)] bg-[rgba(255,255,255,0.72)] font-hand text-base text-[var(--ink)]">
+                            {index + 1}
+                          </span>
+                          <span>
+                            <strong className="font-semibold text-[var(--ink)]">
+                              {project.title}
+                            </strong>
+                            <span className="mt-1 block">{project.heroLine}</span>
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+
+                  <div
+                    className="sticky-note notebook-shadow rounded-[1.7rem] px-5 py-5"
+                    style={{
+                      backgroundColor: 'var(--sticky-blue)',
+                      transform: 'rotate(1.8deg)',
+                    }}
                   >
-                    {pageCopy.contactLabel}
-                  </a>
-                </div>
+                    <p className="font-hand text-[1.65rem] text-[var(--ink)]">
+                      {pageCopy.stackNoteTitle}
+                    </p>
+                    <p className="mt-4 leading-8 text-[var(--ink-muted)]">
+                      {activeTrack.stackNote}
+                    </p>
+                  </div>
+                </aside>
               </div>
-            </div>
+            </section>
 
-            <aside className="relative grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-              <div
-                className="sticky-note notebook-shadow rounded-[1.7rem] px-5 py-5"
-                style={{ transform: 'rotate(-2.2deg)' }}
-              >
-                <p className="font-['Patrick_Hand'] text-[1.65rem] text-[var(--ink)]">
-                  {pageCopy.projectStackTitle}
-                </p>
-                <ol className="mt-4 space-y-3">
-                  {orderedProjects.map((project, index) => (
-                    <li
-                      key={project.id}
-                      className="flex items-start gap-3 text-sm leading-7 text-[var(--ink-muted)]"
-                    >
-                      <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-[var(--ink)] bg-[rgba(255,255,255,0.72)] font-['Patrick_Hand'] text-base text-[var(--ink)]">
-                        {index + 1}
-                      </span>
-                      <span>
-                        <strong className="font-semibold text-[var(--ink)]">
-                          {project.title}
-                        </strong>
-                        <span className="mt-1 block">{project.heroLine}</span>
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-
-              <div
-                className="sticky-note notebook-shadow rounded-[1.7rem] px-5 py-5"
-                style={{
-                  backgroundColor: 'var(--sticky-blue)',
-                  transform: 'rotate(1.8deg)',
-                }}
-              >
-                <p className="font-['Patrick_Hand'] text-[1.65rem] text-[var(--ink)]">
-                  {pageCopy.stackNoteTitle}
-                </p>
-                <p className="mt-4 leading-8 text-[var(--ink-muted)]">
-                  {activeTrack.stackNote}
-                </p>
-              </div>
-            </aside>
-          </div>
-        </section>
-
-        <section
-          id="cases"
-          className="sketch-frame rounded-[2.2rem] px-6 py-7 md:px-10 md:py-10"
-        >
-          <div className="flex flex-col gap-8">
-            <SectionHeading
-              eyebrow={pageCopy.caseEyebrow}
-              title={pageCopy.caseTitle}
-              description={pageCopy.caseDescription}
-            />
-
-            <div className="grid gap-6">
-              {orderedProjects.map((project, index) => (
-                <ProjectNotebookSheet
-                  key={project.id}
-                  labels={{
-                    ownedWork: pageCopy.ownedWorkLabel,
-                    evidence: pageCopy.evidenceLabel,
-                    delivery: pageCopy.deliveryLabel,
-                    publicProofBoard: pageCopy.publicProofBoardTitle,
-                  }}
-                  notebookIndex={index + 1}
-                  project={project}
+            <section
+              id="cases"
+              className="sketch-frame rounded-[2.2rem] px-6 py-7 md:px-10 md:py-10"
+            >
+              <div className="flex flex-col gap-8">
+                <SectionHeading
+                  eyebrow={pageCopy.caseEyebrow}
+                  title={pageCopy.caseTitle}
+                  description={pageCopy.caseDescription}
                 />
-              ))}
-            </div>
-          </div>
-        </section>
 
-        <section className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr]">
-          <div className="sketch-frame rounded-[2.2rem] px-6 py-7 md:px-8 md:py-9">
-            <SectionHeading
-              eyebrow={pageCopy.howIWorkEyebrow}
-              title={pageCopy.howIWorkTitle}
-              description={pageCopy.howIWorkDescription}
-            />
-          </div>
-
-          <div className="grid gap-5 md:grid-cols-[1.05fr_0.95fr]">
-            {workingPrinciples.map((principle, index) => (
-              <article
-                key={principle.title}
-                className="sticky-note notebook-shadow rounded-[1.8rem] px-5 py-5"
-                style={{
-                  backgroundColor: principle.tone,
-                  transform: index % 2 === 0 ? 'rotate(-1.5deg)' : 'rotate(1.3deg)',
-                }}
-              >
-                <p className="font-['Patrick_Hand'] text-[1.6rem] text-[var(--ink)]">
-                  {principle.title}
-                </p>
-                <p className="mt-3 font-['Shantell_Sans'] text-lg font-semibold leading-8 text-[var(--ink)]">
-                  {principle.note}
-                </p>
-                <p className="mt-3 leading-8 text-[var(--ink-muted)]">
-                  {principle.details}
-                </p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="sketch-frame rounded-[2.2rem] px-6 py-7 md:px-10 md:py-10">
-          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-            <SectionHeading
-              eyebrow={pageCopy.contactEyebrow}
-              title={pageCopy.contactTitle}
-              description={pageCopy.contactDescription}
-            />
-
-            <div className="grid gap-4 md:grid-cols-[1fr_1fr]">
-              {contactLinks.map((link, index) => (
-                <a
-                  key={link.id}
-                  className="sticky-note notebook-shadow rounded-[1.7rem] px-5 py-5 text-left no-underline"
-                  href={link.href}
-                  rel={link.openInNewTab ? 'noreferrer' : undefined}
-                  style={{
-                    transform: index % 2 === 0 ? 'rotate(-1deg)' : 'rotate(1.2deg)',
-                  }}
-                  target={link.openInNewTab ? '_blank' : undefined}
-                >
-                  <p className="font-['Patrick_Hand'] text-[1.6rem] text-[var(--ink)]">
-                    {link.label}
-                  </p>
-                  <p className="mt-3 leading-8 text-[var(--ink-muted)]">
-                    {link.value}
-                  </p>
-                </a>
-              ))}
-
-              <div className="rounded-[1.7rem] border-2 border-dashed border-[var(--line)] bg-[rgba(255,255,255,0.74)] px-5 py-5 md:col-span-2">
-                <p className="font-['Patrick_Hand'] text-[1.6rem] text-[var(--ink)]">
-                  {pageCopy.nextStepsTitle}
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {pageCopy.nextSteps.map((item) => (
-                    <span key={item} className="badge-chip">
-                      {item}
-                    </span>
+                <div className="grid gap-6">
+                  {orderedProjects.map((project, index) => (
+                    <ProjectNotebookSheet
+                      key={project.id}
+                      labels={{
+                        ownedWork: pageCopy.ownedWorkLabel,
+                        evidence: pageCopy.evidenceLabel,
+                        delivery: pageCopy.deliveryLabel,
+                        publicProofBoard: pageCopy.publicProofBoardTitle,
+                      }}
+                      notebookIndex={index + 1}
+                      project={project}
+                    />
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
+            </section>
+
+            {activeSupplementalNotes.length > 0 ? (
+              <section
+                id="design-notes"
+                className="sketch-frame rounded-[2.2rem] px-6 py-7 md:px-10 md:py-10"
+              >
+                <div className="flex flex-col gap-8">
+                  <SectionHeading
+                    eyebrow="Design Notes"
+                    title="不算项目，也能说明我怎么拆机制"
+                    description="这类材料更像策划拆解或机制提案。重点不在有没有做成 Demo，而在于我怎么定义角色定位、搭出核心循环、识别平衡风险，再把它整理成一份能讲清楚的方案。"
+                  />
+
+                  <div className="grid gap-6">
+                    {activeSupplementalNotes.map((note, index) => (
+                      <SupplementalNoteSheet
+                        key={note.id}
+                        index={index + 1}
+                        note={note}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </section>
+            ) : null}
+
+            <section
+              id="work-style"
+              className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr]"
+            >
+              <div className="sketch-frame rounded-[2.2rem] px-6 py-7 md:px-8 md:py-9">
+                <SectionHeading
+                  eyebrow={pageCopy.howIWorkEyebrow}
+                  title={pageCopy.howIWorkTitle}
+                  description={pageCopy.howIWorkDescription}
+                />
+              </div>
+
+              <div className="grid gap-5 md:grid-cols-[1.05fr_0.95fr]">
+                {workingPrinciples.map((principle, index) => (
+                  <article
+                    key={principle.title}
+                    className="sticky-note notebook-shadow rounded-[1.8rem] px-5 py-5"
+                    style={{
+                      backgroundColor: principle.tone,
+                      transform:
+                        index % 2 === 0 ? 'rotate(-1.5deg)' : 'rotate(1.3deg)',
+                    }}
+                  >
+                    <p className="font-hand text-[1.6rem] text-[var(--ink)]">
+                      {principle.title}
+                    </p>
+                    <p className="mt-3 font-hand text-lg font-semibold leading-8 text-[var(--ink)]">
+                      {principle.note}
+                    </p>
+                    <p className="mt-3 leading-8 text-[var(--ink-muted)]">
+                      {principle.details}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section
+              id="contact"
+              className="sketch-frame rounded-[2.2rem] px-6 py-7 md:px-10 md:py-10"
+            >
+              <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+                <SectionHeading
+                  eyebrow={pageCopy.contactEyebrow}
+                  title={pageCopy.contactTitle}
+                  description={pageCopy.contactDescription}
+                />
+
+                <div className="grid gap-4 md:grid-cols-[1fr_1fr]">
+                  {contactLinks.map((link, index) => (
+                    <a
+                      key={link.id}
+                      className="sticky-note notebook-shadow rounded-[1.7rem] px-5 py-5 text-left no-underline"
+                      href={link.href}
+                      rel={link.openInNewTab ? 'noreferrer' : undefined}
+                      style={{
+                        transform:
+                          index % 2 === 0 ? 'rotate(-1deg)' : 'rotate(1.2deg)',
+                      }}
+                      target={link.openInNewTab ? '_blank' : undefined}
+                    >
+                      <p className="font-hand text-[1.6rem] text-[var(--ink)]">
+                        {link.label}
+                      </p>
+                      <p className="mt-3 leading-8 text-[var(--ink-muted)]">
+                        {link.value}
+                      </p>
+                    </a>
+                  ))}
+
+                  <div className="contact-tagline-wrap md:col-span-2">
+                    <div className="contact-tagline">
+                      <p className="contact-tagline__text">Contact Me!</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+        </div>
       </main>
 
       {STORY_EDITOR_ENABLED && StoryEditorPanelComponent ? (

@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Patrick+Hand&family=Shantell+Sans:wght@400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css');
 @import "tailwindcss";
 
 :root {
+  --font-hand: 'LXGW WenKai', sans-serif;
   --paper: #f8f1df;
   --paper-deep: #f2e7cf;
   --ink: #1e2930;
@@ -17,7 +18,7 @@
   --shadow-lifted: 8px 10px 0 rgba(38, 54, 63, 0.14);
   color: var(--ink);
   background: var(--paper);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-hand);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -54,6 +55,10 @@ body::before {
 
 a {
   color: inherit;
+}
+
+.font-hand {
+  font-family: var(--font-hand);
 }
 
 #root {
@@ -120,7 +125,7 @@ a {
 }
 
 .ink-title {
-  font-family: 'Shantell Sans', cursive;
+  font-family: var(--font-hand);
   font-weight: 700;
   line-height: 0.98;
   letter-spacing: -0.04em;
@@ -190,6 +195,102 @@ a {
   color: var(--ink);
 }
 
+#intro,
+#cases,
+#design-notes,
+#work-style,
+#contact {
+  scroll-margin-top: 1.2rem;
+}
+
+.page-jump-board {
+  position: fixed;
+  top: clamp(5.4rem, 12vh, 7.4rem);
+  left: 0.55rem;
+  z-index: 12;
+  width: clamp(7rem, 8.5vw, 8rem);
+}
+
+.page-jump-board__title {
+  margin: 0 0 0.9rem;
+  padding-left: 0.3rem;
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.page-jump-board__list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.page-jump-note {
+  display: grid;
+  gap: 0.18rem;
+  border: 2px solid rgba(38, 54, 63, 0.82);
+  border-radius: 1.35rem;
+  padding: 0.82rem 0.8rem 0.86rem;
+  text-decoration: none;
+  box-shadow: var(--shadow-hard);
+  transition:
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: left center;
+}
+
+.page-jump-note:hover {
+  transform: translateY(-3px) rotate(0deg) !important;
+  box-shadow: var(--shadow-lifted);
+}
+
+.page-jump-note:active {
+  transform: translateY(1px) scale(0.98) !important;
+  box-shadow: 2px 2px 0 rgba(38, 54, 63, 0.15);
+}
+
+.page-jump-note__index {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.page-jump-note__label {
+  font-family: var(--font-hand);
+  font-size: 1.26rem;
+  font-weight: 400;
+  line-height: 1.02;
+  color: var(--ink);
+}
+
+.page-jump-note__hint {
+  font-size: 0.78rem;
+  line-height: 1.36;
+  color: var(--ink-muted);
+}
+
+.contact-tagline-wrap {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.contact-tagline {
+  min-width: min(100%, 19rem);
+  border: 2px dashed rgba(67, 87, 98, 0.62);
+  border-radius: 1.6rem;
+  background: rgba(255, 255, 255, 0.68);
+  padding: 0.9rem 1.3rem;
+}
+
+.contact-tagline__text {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--ink);
+}
+
 .diagram-note {
   border: 2px solid var(--line);
   border-radius: 1.8rem;
@@ -206,7 +307,7 @@ a {
 
 .diagram-note__eyebrow {
   margin: 0;
-  font-family: 'Patrick Hand', cursive;
+  font-family: var(--font-hand);
   font-size: 1.15rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -215,7 +316,7 @@ a {
 
 .diagram-note__title {
   margin: 0.35rem 0 0;
-  font-family: 'Shantell Sans', cursive;
+  font-family: var(--font-hand);
   font-size: clamp(1.6rem, 2.4vw, 2rem);
   line-height: 1.15;
   color: var(--ink);
@@ -243,7 +344,7 @@ a {
   border: 2px dashed rgba(67, 87, 98, 0.42);
   border-radius: 1.2rem;
   background: rgba(255, 255, 255, 0.72);
-  font-family: 'Patrick Hand', cursive;
+  font-family: var(--font-hand);
   font-size: 1.45rem;
   color: var(--ink-muted);
 }
@@ -277,6 +378,201 @@ a {
   color: var(--ink);
 }
 
+.markdown-note {
+  border: 2px solid var(--line);
+  border-radius: 1.8rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(248, 241, 223, 0.74));
+  box-shadow: 0 18px 30px -22px rgba(38, 54, 63, 0.34);
+  overflow: hidden;
+}
+
+.markdown-note__loading {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1.6rem;
+}
+
+.markdown-note__skeleton {
+  display: block;
+  height: 1rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(207, 229, 242, 0.62), rgba(255, 255, 255, 0.95), rgba(207, 229, 242, 0.62));
+  background-size: 180% 100%;
+  animation: markdown-shimmer 1.4s linear infinite;
+}
+
+.markdown-note__skeleton--short {
+  width: 26%;
+}
+
+.markdown-note__skeleton--medium {
+  width: 62%;
+}
+
+.markdown-note__skeleton--full {
+  width: 100%;
+}
+
+.markdown-note__status {
+  margin: 1.15rem;
+  padding: 1.25rem 1.15rem;
+  border: 2px dashed rgba(67, 87, 98, 0.42);
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  color: var(--ink-muted);
+}
+
+.markdown-note__deck {
+  display: grid;
+  gap: 1rem;
+  padding: 1.15rem;
+}
+
+.markdown-note__panel {
+  display: grid;
+  gap: 0.9rem;
+  border: 2px solid rgba(67, 87, 98, 0.28);
+  border-radius: 1.55rem;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 1.15rem 1.15rem 1.2rem;
+}
+
+.markdown-note__panel-head {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.markdown-note__panel-eyebrow {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.markdown-note__panel-title {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 2rem;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.markdown-note__rich {
+  color: var(--ink-muted);
+  line-height: 1.9;
+}
+
+.markdown-note__rich h1,
+.markdown-note__rich h2,
+.markdown-note__rich h3 {
+  margin: 1.65rem 0 0.8rem;
+  color: var(--ink);
+}
+
+.markdown-note__rich h1:first-child,
+.markdown-note__rich h2:first-child,
+.markdown-note__rich h3:first-child {
+  margin-top: 0;
+}
+
+.markdown-note__rich h1 {
+  font-family: var(--font-hand);
+  font-size: clamp(2rem, 3.2vw, 2.7rem);
+  line-height: 1.1;
+}
+
+.markdown-note__rich h2 {
+  font-family: var(--font-hand);
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.markdown-note__rich h3 {
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  line-height: 1.3;
+}
+
+.markdown-note__rich p,
+.markdown-note__rich ul,
+.markdown-note__rich ol,
+.markdown-note__rich table,
+.markdown-note__rich blockquote {
+  margin: 0.8rem 0 0;
+}
+
+.markdown-note__rich strong {
+  color: var(--ink);
+}
+
+.markdown-note__rich ul,
+.markdown-note__rich ol {
+  padding-left: 1.4rem;
+}
+
+.markdown-note__rich li + li {
+  margin-top: 0.38rem;
+}
+
+.markdown-note__rich hr {
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 2px dashed rgba(67, 87, 98, 0.42);
+}
+
+.markdown-note__rich blockquote {
+  border-left: 4px solid rgba(67, 87, 98, 0.52);
+  padding-left: 1rem;
+  color: var(--ink);
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+}
+
+.markdown-note__table-wrap {
+  overflow-x: auto;
+  margin-top: 0.95rem;
+}
+
+.markdown-note__rich table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.markdown-note__rich th,
+.markdown-note__rich td {
+  border: 1.5px solid rgba(67, 87, 98, 0.3);
+  padding: 0.72rem 0.82rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.markdown-note__rich th {
+  background: rgba(207, 229, 242, 0.36);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.markdown-note__rich td {
+  color: var(--ink-muted);
+}
+
+@keyframes markdown-shimmer {
+  0% {
+    background-position: 180% 0;
+  }
+
+  100% {
+    background-position: -180% 0;
+  }
+}
+
 .story-panel-scroll {
   overscroll-behavior: contain;
 }
@@ -300,7 +596,7 @@ a {
 .editor-summary {
   cursor: pointer;
   list-style: none;
-  font-family: 'Patrick Hand', cursive;
+  font-family: var(--font-hand);
   font-size: 1.6rem;
   color: var(--ink);
 }
@@ -402,5 +698,43 @@ a {
 
   .marker-line {
     width: 150px;
+  }
+}
+
+@media (max-width: 1279px) {
+  .page-jump-board {
+    width: 6.7rem;
+  }
+
+  .page-jump-board__title,
+  .page-jump-note__hint {
+    display: none;
+  }
+
+  .page-jump-board__list {
+    gap: 0.72rem;
+  }
+
+  .page-jump-note {
+    gap: 0.1rem;
+    padding: 0.78rem 0.72rem 0.8rem;
+  }
+
+  .page-jump-note__label {
+    font-size: 1.14rem;
+  }
+}
+
+@media (min-width: 1040px) {
+  .markdown-note__deck {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .markdown-note__panel {
+    grid-column: span 6;
+  }
+
+  .markdown-note__panel--wide {
+    grid-column: 1 / -1;
   }
 }

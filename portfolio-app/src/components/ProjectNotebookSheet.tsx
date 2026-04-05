@@ -33,10 +33,10 @@ export function ProjectNotebookSheet({
           <header className="space-y-4">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div className="space-y-2">
-                <p className="font-['Patrick_Hand'] text-lg uppercase tracking-[0.18em] text-[var(--ink-soft)]">
+                <p className="font-hand text-lg uppercase tracking-[0.18em] text-[var(--ink-soft)]">
                   Notebook 0{notebookIndex}
                 </p>
-                <h3 className="font-['Shantell_Sans'] text-3xl font-semibold text-[var(--ink)] md:text-[2.6rem]">
+                <h3 className="font-hand text-3xl font-semibold text-[var(--ink)] md:text-[2.6rem]">
                   {project.title}
                 </h3>
                 <p className="text-sm uppercase tracking-[0.18em] text-[var(--ink-soft)]">
@@ -50,7 +50,7 @@ export function ProjectNotebookSheet({
               </div>
             </div>
 
-            <p className="font-['Shantell_Sans'] text-lg font-semibold leading-8 text-[var(--ink)] md:text-[1.45rem]">
+            <p className="font-hand text-lg font-semibold leading-8 text-[var(--ink)] md:text-[1.45rem]">
               {project.heroLine}
             </p>
             <p className="max-w-[68ch] leading-8 text-[var(--ink-muted)]">
@@ -105,7 +105,7 @@ export function ProjectNotebookSheet({
             </section>
           ) : (
             <section className="rounded-[1.8rem] border-2 border-[var(--line)] bg-[rgba(255,255,255,0.72)] px-5 py-5">
-              <p className="font-['Patrick_Hand'] text-[1.75rem] text-[var(--ink)]">
+              <p className="font-hand text-[1.75rem] text-[var(--ink)]">
                 {labels.publicProofBoard}
               </p>
               <div className="mt-4 grid gap-3 md:grid-cols-2">
@@ -124,7 +124,7 @@ export function ProjectNotebookSheet({
 
         <aside className="grid gap-4">
           <section className="rounded-[1.7rem] border-2 border-[var(--line)] bg-[rgba(255,255,255,0.72)] px-5 py-5">
-            <p className="font-['Patrick_Hand'] text-[1.65rem] text-[var(--ink)]">
+            <p className="font-hand text-[1.65rem] text-[var(--ink)]">
               {labels.ownedWork}
             </p>
             <ul className="mt-4 space-y-3">
@@ -144,7 +144,7 @@ export function ProjectNotebookSheet({
           </section>
 
           <section className="rounded-[1.7rem] border-2 border-[var(--line)] bg-[var(--paper)] px-5 py-5">
-            <p className="font-['Patrick_Hand'] text-[1.65rem] text-[var(--ink)]">
+            <p className="font-hand text-[1.65rem] text-[var(--ink)]">
               {labels.evidence}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -167,7 +167,7 @@ export function ProjectNotebookSheet({
           </section>
 
           <section className="rounded-[1.7rem] border-2 border-[var(--line)] bg-[rgba(255,255,255,0.72)] px-5 py-5">
-            <p className="font-['Patrick_Hand'] text-[1.65rem] text-[var(--ink)]">
+            <p className="font-hand text-[1.65rem] text-[var(--ink)]">
               {labels.delivery}
             </p>
             <ul className="mt-4 space-y-3">
