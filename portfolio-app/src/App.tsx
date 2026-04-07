@@ -1,5 +1,6 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from 'react'
 import { DirectionSwitcher } from './components/DirectionSwitcher'
+import { GameExperienceBoard } from './components/GameExperienceBoard'
 import { ProjectNotebookSheet } from './components/ProjectNotebookSheet'
 import { SectionHeading } from './components/SectionHeading'
 import { SupplementalNoteSheet } from './components/SupplementalNoteSheet'
@@ -168,6 +169,15 @@ function App() {
         },
       ]
 
+      if (activeTrackId === 'game') {
+        jumpNotes.push({
+          id: 'game-experience',
+          label: '游戏经历',
+          hint: '游玩证明',
+          tone: 'var(--sticky-green)',
+        })
+      }
+
       if (activeSupplementalNotes.length > 0) {
         jumpNotes.push({
           id: 'design-notes',
@@ -194,7 +204,7 @@ function App() {
 
       return jumpNotes
     },
-    [activeSupplementalNotes.length],
+    [activeSupplementalNotes.length, activeTrackId],
   )
 
   return (
@@ -330,6 +340,8 @@ function App() {
                 </aside>
               </div>
             </section>
+
+            {activeTrackId === 'game' ? <GameExperienceBoard /> : null}
 
             <section
               id="cases"

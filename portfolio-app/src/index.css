@@ -196,6 +196,7 @@ a {
 }
 
 #intro,
+#game-experience,
 #cases,
 #design-notes,
 #work-style,
@@ -288,6 +289,108 @@ a {
   font-family: var(--font-hand);
   font-size: 2rem;
   line-height: 1;
+  color: var(--ink);
+}
+
+.game-ledger {
+  border: 2px solid var(--line);
+  border-radius: 1.9rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(248, 241, 223, 0.66));
+  box-shadow: 0 18px 30px -22px rgba(38, 54, 63, 0.34);
+  padding: 1.1rem;
+}
+
+.game-ledger__header {
+  display: grid;
+  gap: 0.28rem;
+  padding: 0.35rem 0.35rem 0.9rem;
+}
+
+.game-ledger__eyebrow {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  color: var(--ink);
+}
+
+.game-ledger__summary {
+  margin: 0;
+  color: var(--ink-muted);
+  line-height: 1.8;
+}
+
+.game-ledger__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.game-ledger__card {
+  display: grid;
+  gap: 1rem;
+  border: 2px solid rgba(38, 54, 63, 0.78);
+  border-radius: 1.55rem;
+  box-shadow: var(--shadow-hard);
+  padding: 1rem 1rem 1.05rem;
+}
+
+.game-ledger__card-head {
+  display: grid;
+  gap: 0.28rem;
+}
+
+.game-ledger__card-title {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 1.65rem;
+  color: var(--ink);
+}
+
+.game-ledger__card-summary {
+  margin: 0;
+  color: var(--ink-muted);
+  line-height: 1.75;
+}
+
+.game-ledger__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.72rem;
+}
+
+.game-ledger__item {
+  display: grid;
+  gap: 0.45rem;
+  border-radius: 1.1rem;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 0.78rem 0.86rem;
+}
+
+.game-ledger__name {
+  margin: 0;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.game-ledger__note {
+  margin: 0.18rem 0 0;
+  color: var(--ink-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.game-ledger__proof {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid rgba(38, 54, 63, 0.82);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+  padding: 0.34rem 0.72rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
   color: var(--ink);
 }
 
@@ -726,6 +829,20 @@ a {
 }
 
 @media (min-width: 1040px) {
+  .game-ledger__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .game-ledger__item {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0.75rem;
+  }
+
+  .game-ledger__proof {
+    justify-self: end;
+  }
+
   .markdown-note__deck {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
