@@ -153,6 +153,16 @@ export function ProjectNotebookSheet({
                   {metric}
                 </span>
               ))}
+              {project.liveLink ? (
+                <a
+                  className="badge-chip badge-chip--link"
+                  href={project.liveLink.href}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  {project.liveLink.label}
+                </a>
+              ) : null}
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               {project.evidence.map((item) => (

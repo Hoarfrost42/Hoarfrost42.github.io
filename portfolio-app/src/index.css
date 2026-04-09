@@ -195,6 +195,25 @@ a {
   color: var(--ink);
 }
 
+.badge-chip--link {
+  text-decoration: none;
+  transition:
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.badge-chip--link:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 5px 0 rgba(38, 54, 63, 0.12);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.badge-chip--link:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 2px 2px 0 rgba(38, 54, 63, 0.12);
+}
+
 #intro,
 #game-experience,
 #cases,

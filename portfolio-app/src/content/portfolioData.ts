@@ -39,6 +39,10 @@ export interface PortfolioProject {
   }
   metrics: string[]
   evidence: string[]
+  liveLink?: {
+    label: string
+    href: string
+  }
   stickyTone: string
   tilt: string
 }
@@ -153,6 +157,10 @@ export const portfolioProjects: PortfolioProject[] = [
     ],
     metrics: ['70+ 工具内容', '4 类内容板块', '搜索与对比链路', '公开站主链路可演示'],
     evidence: ['公开页面截图', '信息架构说明', '搜索与对比录屏', '脱敏内容关系图'],
+    liveLink: {
+      label: 'https://ai-kjz.cn/',
+      href: 'https://ai-kjz.cn/',
+    },
     stickyTone: 'var(--sticky-blue)',
     tilt: 'rotate(1.6deg)',
   },
