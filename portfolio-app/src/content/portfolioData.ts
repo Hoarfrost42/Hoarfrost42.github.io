@@ -217,6 +217,10 @@ export const portfolioProjects: PortfolioProject[] = [
     ],
     metrics: ['4 类 Provider', 'SSE 实时流式', 'Markdown 导出', '8 组单测/集成测试'],
     evidence: ['主界面截图', '设置页配置能力', 'README 功能说明', '测试目录结构'],
+    liveLink: {
+      label: 'https://github.com/Hoarfrost42/Agent_Round',
+      href: 'https://github.com/Hoarfrost42/Agent_Round',
+    },
     stickyTone: 'var(--sticky-yellow)',
     tilt: 'rotate(-2.1deg)',
   },
