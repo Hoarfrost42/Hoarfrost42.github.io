@@ -294,6 +294,10 @@ export const portfolioProjects: PortfolioProject[] = [
       '本地 RTX 3060 验证',
     ],
     evidence: ['效果展示页', '核心性能指标图', '混淆矩阵对照', 'Benchmark 与消融实验说明'],
+    liveLink: {
+      label: 'https://github.com/Hoarfrost42/Contract_agent',
+      href: 'https://github.com/Hoarfrost42/Contract_agent',
+    },
     stickyTone: 'var(--sticky-green)',
     tilt: 'rotate(-1.4deg)',
   },
