@@ -155,13 +155,13 @@ export const portfolioProjects: PortfolioProject[] = [
         caption: '详情页：标签、亮点、跳转入口收到一页，方便快速判断和对比。',
       },
       {
-        src: './resource/img/ai-space-analytics-202605.png',
-        alt: 'AI空间站运营数据看板截图',
-        caption: '运营看板：把来源、搜索、工具转化和内容表现收进后台，项目不只停在公开页面。',
+        src: './resource/img/ai-tools-overview-202605.png',
+        alt: 'AI空间站工具总览页截图',
+        caption: '工具总览：把分类、筛选、排序和工具卡片放在同一页，让访问者快速缩小候选范围。',
       },
     ],
     metrics: ['132 个工具', '20 篇文章 / 48 条资讯', '35 篇教程 / 16 个工作流', '投稿审核 + 媒体库 + analytics 后台'],
-    evidence: ['公开页面截图', '信息架构说明', '搜索与筛选链路', '后台 analytics 截图'],
+    evidence: ['公开页面截图', '信息架构说明', '搜索与筛选链路', '工具总览与详情页'],
     liveLink: {
       label: 'https://ai-kjz.cn/',
       href: 'https://ai-kjz.cn/',
